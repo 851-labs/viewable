@@ -82,7 +82,7 @@ Stepper("Value: \\(value)", value: $value)
       StepperExample(
         title: "Range",
         stepper: AnyView(Stepper("Count: \(rangeValue)", value: $rangeValue, in: 0...10)),
-        code: "Stepper(\"Count: \\(value)\", value: $value, in: 0...10)",
+        code: "Stepper(\"...\", value: $value, in: 0...10)",
         fullCode: """
 @State private var value: Int = 3
 
@@ -93,7 +93,7 @@ Stepper("Count: \\(value)", value: $value, in: 0...10)
       StepperExample(
         title: "Step",
         stepper: AnyView(Stepper("Step: \(stepValue)", value: $stepValue, step: 5)),
-        code: "Stepper(\"Step: \\(value)\", value: $value, step: 5)",
+        code: "Stepper(\"...\", value: $value, step: 5)",
         fullCode: """
 @State private var value: Int = 10
 

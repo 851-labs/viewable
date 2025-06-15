@@ -24,6 +24,9 @@ struct ContentView: View {
           NavigationLink("Steppers") {
             StepperExamplesView()
           }
+          NavigationLink("Color Pickers") {
+            ColorPickerExamplesView()
+          }
         }
       }
       .navigationTitle("SwiftUI Examples")
