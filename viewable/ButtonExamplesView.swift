@@ -207,8 +207,6 @@ Button {
         HStack {
           Text("Button with Icons")
           Spacer()
-          Text("Label() & Image()")
-            .font(.system(.caption2, design: .monospaced))
         }
       }
       
@@ -367,8 +365,6 @@ Button("Button", role: .destructive) {
         HStack {
           Text("Destructive Buttons")
           Spacer()
-          Text("role: .destructive")
-            .font(.system(.caption2, design: .monospaced))
         }
       }
       

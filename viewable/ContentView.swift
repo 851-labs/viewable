@@ -11,8 +11,13 @@ struct ContentView: View {
   var body: some View {
     NavigationStack {
       List {
-        NavigationLink("Button Examples") {
-          ButtonExamplesView()
+        Section { 
+          NavigationLink("Button") {
+            ButtonExamplesView()
+          }
+          NavigationLink("Slider") {
+            SliderExamplesView()
+          }
         }
       }
       .navigationTitle("SwiftUI Examples")
