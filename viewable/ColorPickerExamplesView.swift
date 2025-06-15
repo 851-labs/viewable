@@ -53,13 +53,9 @@ ColorPicker("Select Color", selection: $selectedColor)
 
 struct ColorPickerExamplesView: View {
   @State private var basicColor: Color = .blue
-  @State private var labelColor: Color = .green
-  @State private var opacityColor: Color = .red
   @State private var noOpacityColor: Color = .purple
   @State private var disabledColor: Color = .orange
   @State private var customLabelColor: Color = .teal
-  @State private var wheelColor: Color = .indigo
-  @State private var paletteColor: Color = .mint
   
   var body: some View {
     List {

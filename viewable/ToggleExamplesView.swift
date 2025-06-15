@@ -60,17 +60,6 @@ struct ToggleExamplesView: View {
   @State private var tintToggle: Bool = true
   @State private var disabledToggle: Bool = false
 
-  @State private var notificationsToggle: Bool = true
-  @State private var darkModeToggle: Bool = false
-  @State private var airplaneModeToggle: Bool = false
-  @State private var bluetoothToggle: Bool = true
-  @State private var wifiToggle: Bool = true
-  @State private var locationToggle: Bool = false
-  @State private var biometricsToggle: Bool = true
-  @State private var autoLockToggle: Bool = true
-  @State private var lowPowerToggle: Bool = false
-  @State private var personalHotspotToggle: Bool = false
-
   var body: some View {
     List {
       ToggleExample(

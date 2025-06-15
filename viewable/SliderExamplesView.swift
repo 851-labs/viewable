@@ -56,7 +56,6 @@ struct SliderExamplesView: View {
   @State private var rangeValue: Double = 50
   @State private var stepValue: Double = 5
   @State private var minValue: Double = 0.2
-  @State private var maxValue: Double = 0.8
   @State private var percentValue: Double = 75
   @State private var temperatureValue: Double = 20
   @State private var volumeValue: Double = 0.6

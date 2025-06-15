@@ -52,19 +52,12 @@ Stepper("Value: \\(value)", value: $value)
 // MARK: - Main View
 
 struct StepperExamplesView: View {
-  @State private var basicValue: Int = 5
+    @State private var basicValue: Int = 5
   @State private var rangeValue: Int = 3
   @State private var stepValue: Int = 10
-  @State private var doubleValue: Double = 2.5
+  @State private var customValue: Int = 64
   @State private var disabledValue: Int = 0
   @State private var labelValue: Int = 8
-  
-  @State private var volumeLevel: Int = 7
-  @State private var quantity: Int = 1
-  @State private var fontSize: Int = 16
-  @State private var temperature: Int = 20
-  @State private var rating: Int = 3
-  @State private var timerMinutes: Int = 5
   
   var body: some View {
     List {
@@ -104,18 +97,18 @@ Stepper("Step: \\(value)", value: $value, step: 5)
       StepperExample(
         title: "Custom Actions",
         stepper: AnyView(
-          Stepper("Custom: \(basicValue)") {
-            basicValue *= 2
+          Stepper("Custom: \(customValue)") {
+            customValue *= 2
           } onDecrement: {
-            basicValue /= 2
+            customValue /= 2
           }
         ),
         code: "Stepper with custom onIncrement/onDecrement",
         fullCode: """
-@State private var value: Int = 5
+@State private var value: Int = 4
 
 Stepper("Custom: \\(value)") {
-  value /= 2
+  value *= 2
 } onDecrement: {
   value /= 2
 }
