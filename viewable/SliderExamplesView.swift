@@ -137,20 +137,6 @@ Slider(value: $value, in: 0...1)
 """
       )
       
-      SliderExample(
-        title: "Accent Color",
-        slider: AnyView(
-          Slider(value: $basicValue, in: 0...1)
-            .accentColor(.purple)
-        ),
-        code: ".accentColor(.purple)",
-        fullCode: """
-@State private var value: Double = 0.5
-
-Slider(value: $value, in: 0...1)
-  .accentColor(.purple)
-"""
-      )
       
       SliderExample(
         title: "Disabled",

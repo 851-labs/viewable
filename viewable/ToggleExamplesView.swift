@@ -58,7 +58,6 @@ struct ToggleExamplesView: View {
   @State private var buttonToggle: Bool = true
   @State private var labelToggle: Bool = true
   @State private var tintToggle: Bool = true
-  @State private var accentToggle: Bool = true
   @State private var disabledToggle: Bool = false
 
   // Block examples
@@ -153,21 +152,6 @@ struct ToggleExamplesView: View {
 
         Toggle("Custom Color", isOn: $isOn)
           .tint(.purple)
-        """
-      )
-
-      ToggleExample(
-        title: "Accent Color",
-        toggle: AnyView(
-          Toggle("Accent Color", isOn: $accentToggle)
-            .accentColor(.orange)
-        ),
-        code: ".accentColor(.orange)",
-        fullCode: """
-        @State private var isOn: Bool = false
-
-        Toggle("Accent Color", isOn: $isOn)
-          .accentColor(.orange)
         """
       )
 
