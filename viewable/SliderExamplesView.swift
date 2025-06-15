@@ -299,8 +299,6 @@ VStack(alignment: .leading, spacing: 8) {
 }
 """
       )
-      
-
     }
     .navigationTitle("Sliders")
   }

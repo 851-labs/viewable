@@ -21,6 +21,9 @@ struct ContentView: View {
           NavigationLink("Toggles") {
             ToggleExamplesView()
           }
+          NavigationLink("Steppers") {
+            StepperExamplesView()
+          }
         }
       }
       .navigationTitle("SwiftUI Examples")

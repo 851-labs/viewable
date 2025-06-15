@@ -60,7 +60,6 @@ struct ToggleExamplesView: View {
   @State private var tintToggle: Bool = true
   @State private var disabledToggle: Bool = false
 
-  // Block examples
   @State private var notificationsToggle: Bool = true
   @State private var darkModeToggle: Bool = false
   @State private var airplaneModeToggle: Bool = false
@@ -124,7 +123,7 @@ struct ToggleExamplesView: View {
       )
 
       ToggleExample(
-        title: "Label & Icon",
+        title: "Label",
         toggle: AnyView(
           Toggle(isOn: $labelToggle) {
             Label("Wi-Fi", systemImage: "wifi")
