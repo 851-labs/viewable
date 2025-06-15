@@ -11,12 +11,15 @@ struct ContentView: View {
   var body: some View {
     NavigationStack {
       List {
-        Section { 
-          NavigationLink("Button") {
+        Section("Components") { 
+          NavigationLink("Buttons") {
             ButtonExamplesView()
           }
-          NavigationLink("Slider") {
+          NavigationLink("Sliders") {
             SliderExamplesView()
+          }
+          NavigationLink("Toggles") {
+            ToggleExamplesView()
           }
         }
       }

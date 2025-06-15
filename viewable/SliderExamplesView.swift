@@ -76,7 +76,7 @@ Slider(value: $value)
       )
       
       SliderExample(
-        title: "With Range",
+        title: "Range",
         slider: AnyView(Slider(value: $rangeValue, in: 0...100)),
         code: "Slider(value: $value, in: 0...100)",
         fullCode: """
@@ -87,7 +87,7 @@ Slider(value: $value, in: 0...100)
       )
       
       SliderExample(
-        title: "With Step",
+        title: "Step",
         slider: AnyView(Slider(value: $stepValue, in: 0...10, step: 1)),
         code: "Slider(value: $value, in: 0...10, step: 1)",
         fullCode: """
@@ -98,7 +98,7 @@ Slider(value: $value, in: 0...10, step: 1)
       )
       
       SliderExample(
-        title: "With Min/Max Labels",
+        title: "Min/Max Labels",
         slider: AnyView(
           Slider(value: $minValue, in: 0...1) {
             Text("Opacity")
@@ -121,6 +121,56 @@ Slider(value: $value, in: 0...1) {
 }
 """
       )
+      
+      SliderExample(
+        title: "Tint",
+        slider: AnyView(
+          Slider(value: $basicValue, in: 0...1)
+            .tint(.red)
+        ),
+        code: ".tint(.red)",
+        fullCode: """
+@State private var value: Double = 0.5
+
+Slider(value: $value, in: 0...1)
+  .tint(.red)
+"""
+      )
+      
+      SliderExample(
+        title: "Accent Color",
+        slider: AnyView(
+          Slider(value: $basicValue, in: 0...1)
+            .accentColor(.purple)
+        ),
+        code: ".accentColor(.purple)",
+        fullCode: """
+@State private var value: Double = 0.5
+
+Slider(value: $value, in: 0...1)
+  .accentColor(.purple)
+"""
+      )
+      
+      SliderExample(
+        title: "Disabled",
+        slider: AnyView(
+          Slider(value: $basicValue, in: 0...1)
+            .disabled(true)
+        ),
+        code: ".disabled(true)",
+        fullCode: """
+@State private var value: Double = 0.5
+
+Slider(value: $value, in: 0...1)
+  .disabled(true)
+"""
+      )
+      
+      Section(header: Text("")) {}
+        .headerProminence(.increased)
+      Section(header: Text("Examples")) {}
+        .headerProminence(.increased)
       
       SliderExample(
         title: "Percentage",
@@ -264,53 +314,9 @@ VStack(alignment: .leading, spacing: 8) {
 """
       )
       
-      SliderExample(
-        title: "Tint Color",
-        slider: AnyView(
-          Slider(value: $basicValue, in: 0...1)
-            .tint(.red)
-        ),
-        code: ".tint(.red)",
-        fullCode: """
-@State private var value: Double = 0.5
 
-Slider(value: $value, in: 0...1)
-  .tint(.red)
-"""
-      )
-      
-      SliderExample(
-        title: "Accent Color",
-        slider: AnyView(
-          Slider(value: $basicValue, in: 0...1)
-            .accentColor(.purple)
-        ),
-        code: ".accentColor(.purple)",
-        fullCode: """
-@State private var value: Double = 0.5
-
-Slider(value: $value, in: 0...1)
-  .accentColor(.purple)
-"""
-      )
-      
-      SliderExample(
-        title: "Disabled",
-        slider: AnyView(
-          Slider(value: $basicValue, in: 0...1)
-            .disabled(true)
-        ),
-        code: ".disabled(true)",
-        fullCode: """
-@State private var value: Double = 0.5
-
-Slider(value: $value, in: 0...1)
-  .disabled(true)
-"""
-      )
     }
-    .navigationTitle("Slider")
-    .navigationBarTitleDisplayMode(.large)
+    .navigationTitle("Sliders")
   }
 }
 

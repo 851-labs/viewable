@@ -450,8 +450,7 @@ Button("Capsule") {
         }
       }
     }
-    .navigationTitle("Button Examples")
-    .navigationBarTitleDisplayMode(.large)
+    .navigationTitle("Buttons")
   }
 }
 
