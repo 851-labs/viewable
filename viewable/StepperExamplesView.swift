@@ -27,7 +27,7 @@ struct StepperExample: View {
       stepper
         .contextMenu {
           Button("Copy Code") {
-            UIPasteboard.general.string = fullCode ?? generateDefaultCode()
+            (fullCode ?? generateDefaultCode()).copyToClipboard()
           }
         }
     } header: {
@@ -63,7 +63,9 @@ struct StepperExamplesView: View {
     List {
       StepperExample(
         title: "Basic",
-        stepper: AnyView(Stepper("Value: \(basicValue)", value: $basicValue)),
+        stepper: {
+          Stepper("Value: \(basicValue)", value: $basicValue)
+        },
         code: "Stepper(\"Value: \\(value)\", value: $value)",
         fullCode: """
 @State private var value: Int = 5
@@ -74,7 +76,9 @@ Stepper("Value: \\(value)", value: $value)
       
       StepperExample(
         title: "Range",
-        stepper: AnyView(Stepper("Count: \(rangeValue)", value: $rangeValue, in: 0...10)),
+        stepper: {
+          Stepper("Count: \(rangeValue)", value: $rangeValue, in: 0...10)
+        },
         code: "Stepper(\"...\", value: $value, in: 0...10)",
         fullCode: """
 @State private var value: Int = 3
@@ -85,7 +89,9 @@ Stepper("Count: \\(value)", value: $value, in: 0...10)
       
       StepperExample(
         title: "Step",
-        stepper: AnyView(Stepper("Step: \(stepValue)", value: $stepValue, step: 5)),
+        stepper: {
+          Stepper("Step: \(stepValue)", value: $stepValue, step: 5)
+        },
         code: "Stepper(\"...\", value: $value, step: 5)",
         fullCode: """
 @State private var value: Int = 10
@@ -96,13 +102,13 @@ Stepper("Step: \\(value)", value: $value, step: 5)
       
       StepperExample(
         title: "Custom Actions",
-        stepper: AnyView(
+        stepper: {
           Stepper("Custom: \(customValue)") {
             customValue *= 2
           } onDecrement: {
             customValue /= 2
           }
-        ),
+        },
         code: "Stepper with custom onIncrement/onDecrement",
         fullCode: """
 @State private var value: Int = 4
@@ -117,11 +123,11 @@ Stepper("Custom: \\(value)") {
       
       StepperExample(
         title: "Label",
-        stepper: AnyView(
+        stepper: {
           Stepper(value: $labelValue) {
             Label("Volume: \(labelValue)", systemImage: "speaker.wave.2")
           }
-        ),
+        },
         code: "Stepper(value: $value) { Label(...) }",
         fullCode: """
 @State private var value: Int = 8
@@ -134,7 +140,10 @@ Stepper("Value: \\(value)", value: $value, in: 1...10) {
       
       StepperExample(
         title: "Disabled",
-        stepper: AnyView(Stepper("Disabled: \(disabledValue)", value: $disabledValue).disabled(true)),
+        stepper: {
+          Stepper("Disabled: \(disabledValue)", value: $disabledValue)
+            .disabled(true)
+        },
         code: ".disabled(true)",
         fullCode: """
 @State private var value: Int = 0
