@@ -15,7 +15,7 @@ struct AnyDistanceAnimationsView: View {
         AnyDistanceFlickeringImageShowcaseView()
       }
     }
-    .navigationTitle("Any Distance Animations")
+    .navigationTitle("Any Distance")
   }
 }
 

@@ -1,6 +1,59 @@
-#if canImport(UIKit)
-import UIKit
 import SwiftUI
+
+// MARK: - Shared view modifier (available on all platforms)
+
+/// Provides the common navigation title, toolbar info button, and info sheet used in both
+/// the UIKit-powered and fallback showcase views.
+struct AnyDistanceNeonFlickerInfoModifier: ViewModifier {
+  @State var isPresented: Bool = false
+
+  func body(content: Content) -> some View {
+    content
+      .navigationTitle("Neon Flickering Image")
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Information", systemImage: "info.circle") {
+            isPresented = true
+          }
+        }
+      }
+      .sheet(isPresented: $isPresented) {
+        NavigationView {
+          ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+              Text("I made this flickering image component to mimic the look of neon. The graphic is a copy of a real neon sign that hung outside Switchyards in downtown Atlanta, where we had an office.")
+                .italic()
+                .padding()
+              Link("View full article", destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
+                .padding(.horizontal)
+            }
+          }
+          .navigationTitle("Any Distance Goes Open Source")
+          .navigationSubtitle("Spotted in Prod")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+              Button("Close", systemImage: "xmark") {
+                isPresented = false
+              }
+            }
+          }
+        }
+        .presentationDetents([.medium])
+      }
+  }
+}
+
+extension View {
+  /// Applies the Neon Flicker navigation title, info toolbar button and info sheet.
+  func anyDistanceNeonFlickerInfo() -> some View {
+    modifier(AnyDistanceNeonFlickerInfoModifier())
+  }
+}
+
+#if canImport(UIKit)
+
+import UIKit
 
 final class AnyDistanceFlickeringUIImageView: UIImageView {
   // MARK: - Variables
@@ -113,19 +166,6 @@ struct AnyDistanceFlickeringImage: UIViewRepresentable {
   }
 }
 
-/// Placeholder shown when the flickering neon effect is unavailable on the current platform.
-struct AnyDistanceFlickeringImage: View {
-  public let imageName: String
-
-  public init(imageName: String) {
-    self.imageName = imageName
-  }
-
-  var body: some View {
-    ContentUnavailableView("Neon flicker effect is not supported on this platform", systemImage: "pc")
-  }
-}
-
 struct AnyDistanceFlickeringImageShowcaseView: View {
   var body: some View {
     VStack(spacing: 32) {
@@ -134,19 +174,21 @@ struct AnyDistanceFlickeringImageShowcaseView: View {
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .preferredColorScheme(.dark)
-    .navigationTitle("Neon Flicker")
+    .anyDistanceNeonFlickerInfo()
   }
 }
 
 #else
 
-import SwiftUI
-
 struct AnyDistanceFlickeringImageShowcaseView: View {
   var body: some View {
     ContentUnavailableView("Neon flicker effect is not supported on this platform", systemImage: "pc")
-      .navigationTitle("Neon Flicker")
+      .anyDistanceNeonFlickerInfo()
   }
 }
 
 #endif
+
+#Preview("AnyDistance Flickering Image") {
+  NavigationStack { AnyDistanceFlickeringImageShowcaseView() }
+}

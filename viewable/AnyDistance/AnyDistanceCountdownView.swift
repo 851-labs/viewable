@@ -1,16 +1,60 @@
-// This file conditionally provides either the full countdown implementation (iOS) or
-// a placeholder view (macOS and other platforms).
-#if canImport(UIKit)
 import SwiftUI
+
+/// Provides the common navigation title, toolbar info button, and info sheet
+/// used in both the UIKit-powered and fallback showcase views for the Any
+/// Distance 3-2-1-Go countdown.
+struct AnyDistanceCountdownInfoModifier: ViewModifier {
+  @State private var isPresented: Bool = false
+
+  func body(content: Content) -> some View {
+    content
+      .navigationTitle("3-2-1 Go")
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Information", systemImage: "info.circle") {
+            isPresented = true
+          }
+        }
+      }
+      .sheet(isPresented: $isPresented) {
+        NavigationView {
+          ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+              Text("This is our classic countdown timer written in SwiftUI. It's a good example of how stacking lots of different SwiftUI modifiers (scaleEffect, opacity, blur) can let you create more complex animations.")
+                .italic()
+                .padding()
+              Link("View full article", destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
+                .padding(.horizontal)
+            }
+          }
+          .navigationTitle("Any Distance Goes Open Source")
+          .navigationSubtitle("Spotted in Prod")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+              Button("Close", systemImage: "xmark") {
+                isPresented = false
+              }
+            }
+          }
+        }
+        .presentationDetents([.medium])
+      }
+  }
+}
+
+extension View {
+  /// Applies the 3-2-1-Go countdown navigation title, info toolbar button, and info sheet.
+  func anyDistanceCountdownInfo() -> some View {
+    modifier(AnyDistanceCountdownInfoModifier())
+  }
+}
+
+#if canImport(UIKit)
+
 import UIKit
 
 // MARK: - Utility Extensions
-
-extension Comparable {
-  func clamped(to limits: ClosedRange<Self>) -> Self {
-    min(max(self, limits.lowerBound), limits.upperBound)
-  }
-}
 
 // MARK: - Dark Blur (UIKit-backed) View
 
@@ -37,7 +81,7 @@ struct AnyDistanceCountdownView: View {
   var finishedAction: () -> Void
 
   private func xOffset() -> CGFloat {
-    let c = animationStep.clamped(to: 0 ... 3)
+    let c = max(min(animationStep, 3), 0)
     return c > 0 ? 60 * (c - 1) - 10 : -90
   }
 
@@ -134,18 +178,16 @@ struct AnyDistanceCountdownShowcaseView: View {
         .opacity(done ? 0 : 1)
     }
     .animation(.easeInOut, value: done)
-    .navigationTitle("3-2-1 Go")
+    .anyDistanceCountdownInfo()
   }
 }
 
 #else
 
-import SwiftUI
-
 struct AnyDistanceCountdownShowcaseView: View {
   var body: some View {
     ContentUnavailableView("3-2-1 countdown is unavailable on this platform", systemImage: "pc")
-      .navigationTitle("3-2-1 Go")
+      .anyDistanceCountdownInfo()
   }
 }
 
@@ -154,4 +196,3 @@ struct AnyDistanceCountdownShowcaseView: View {
 #Preview("AnyDistance Countdown (macOS)") {
   NavigationStack { AnyDistanceCountdownShowcaseView() }
 }
-

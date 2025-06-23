@@ -83,11 +83,13 @@ struct ButtonExamplesView: View {
           code: "borderedProminent"
         )
         
-        ButtonExample(
-          title: "Glass Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.glass)),
-          code: "glass"
-        )
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+          ButtonExample(
+            title: "Glass Button",
+            button: AnyView(Button("Button") {  }.buttonStyle(.glass)),
+            code: "glass"
+          )
+        }
       } header: {
         HStack {
           Text("Styles")
@@ -269,18 +271,20 @@ Button("Button") {
 """
         )
         
-        ButtonExample(
-          title: "Disabled Glass",
-          button: AnyView(Button("Button") {  }.buttonStyle(.glass).disabled(true)),
-          code: "glass",
-          fullCode: """
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+          ButtonExample(
+            title: "Disabled Glass",
+            button: AnyView(Button("Button") {  }.buttonStyle(.glass).disabled(true)),
+            code: "glass",
+            fullCode: """
 Button("Button") {
   
 }
 .buttonStyle(.glass)
 .disabled(true)
 """
-        )
+          )
+        }
       } header: {
         HStack {
           Text("Disabled States")
@@ -350,17 +354,19 @@ Button("Button", role: .destructive) {
 """
         )
         
-        ButtonExample(
-          title: "Destructive Glass",
-          button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.glass)),
-          code: "glass",
-          fullCode: """
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+          ButtonExample(
+            title: "Destructive Glass",
+            button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.glass)),
+            code: "glass",
+            fullCode: """
 Button("Button", role: .destructive) {
   
 }
 .buttonStyle(.glass)
 """
-        )
+          )
+        }
       } header: {
         HStack {
           Text("Destructive Buttons")

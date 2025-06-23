@@ -1,6 +1,57 @@
-#if canImport(UIKit)
-import MetalKit
 import SwiftUI
+
+/// Provides the common navigation title, toolbar info button, and info sheet
+/// for the Metal gradient animation showcase.
+struct AnyDistanceMetalGradientInfoModifier: ViewModifier {
+  @State private var isPresented: Bool = false
+
+  func body(content: Content) -> some View {
+    content
+      .navigationTitle("Metal Gradient Animation")
+      .toolbar {
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button("Information", systemImage: "info.circle") {
+            isPresented = true
+          }
+        }
+      }
+      .sheet(isPresented: $isPresented) {
+        NavigationView {
+          ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+              Text("This gradient animation shader was written in Metal. Although the implementation is completely different than the SwiftUI version, it follows the same basic principle – lots of blurred circles with random sizes, positions, animation, and blurs. It's really easy to draw a blurred oval in a shader – just ramp the color according to the distance to a center point. On top of that, there's some subtle domain warping and a generative noise function to really make it pop.")
+                .italic()
+                .padding()
+              Link("View full article", destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
+                .padding(.horizontal)
+            }
+          }
+          .navigationTitle("Any Distance Goes Open Source")
+          .navigationSubtitle("Spotted in Prod")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+              Button("Close", systemImage: "xmark") {
+                isPresented = false
+              }
+            }
+          }
+        }
+        .presentationDetents([.medium])
+      }
+  }
+}
+
+extension View {
+  /// Applies the Gradient Animation navigation title, info toolbar button and info sheet.
+  func anyDistanceMetalGradientInfo() -> some View {
+    modifier(AnyDistanceMetalGradientInfoModifier())
+  }
+}
+
+#if canImport(UIKit)
+
+import MetalKit
 
 // MARK: - Renderer
 
@@ -157,18 +208,16 @@ struct AnyDistanceMetalGradientShowcaseView: View {
         }
       }
     }
-    .navigationTitle("Gradient Animation")
+    .anyDistanceMetalGradientInfo()
   }
 }
 
 #else
 
-import SwiftUI
-
 struct AnyDistanceMetalGradientShowcaseView: View {
   var body: some View {
     ContentUnavailableView("Gradient animation is unavailable on this platform", systemImage: "pc")
-      .navigationTitle("Gradient Animation")
+      .anyDistanceMetalGradientInfo()
   }
 }
 

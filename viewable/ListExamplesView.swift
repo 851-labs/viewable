@@ -12,13 +12,9 @@ import SwiftUI
 private enum ListStyleKind: String, CaseIterable, Identifiable {
   case automatic
   case plain
-#if !os(macOS)
   case grouped
-#endif
   case inset
-#if !os(macOS)
   case insetGrouped
-#endif
   case sidebar
   
   var id: String { rawValue }
@@ -28,13 +24,9 @@ private enum ListStyleKind: String, CaseIterable, Identifiable {
     switch self {
     case .automatic:      return "Automatic"
     case .plain:          return "Plain"
-#if !os(macOS)
     case .grouped:        return "Grouped"
-#endif
     case .inset:          return "Inset"
-#if !os(macOS)
     case .insetGrouped:   return "Inset Grouped"
-#endif
     case .sidebar:        return "Sidebar"
     }
   }
@@ -104,13 +96,19 @@ private struct SampleListView: View {
       switch kind {
       case .automatic:      list
       case .plain:          list.listStyle(.plain)
-#if !os(macOS)
-      case .grouped:        list.listStyle(.grouped)
-#endif
+      case .grouped:
+        #if os(macOS)
+          ContentUnavailableView("Grouped list style is not available on this platform", systemImage: "pc")
+        #else
+          list.listStyle(.grouped)
+        #endif
       case .inset:          list.listStyle(.inset)
-#if !os(macOS)
-      case .insetGrouped:   list.listStyle(.insetGrouped)
-#endif
+      case .insetGrouped:
+        #if os(macOS)
+          ContentUnavailableView("Inset Grouped list style is not available on this platform", systemImage: "pc")
+        #else
+          list.listStyle(.insetGrouped)
+        #endif
       case .sidebar:        list.listStyle(.sidebar)
       }
     }
@@ -151,10 +149,8 @@ List {
   // …
 }
 """
-#if !os(macOS)
     case .grouped, .insetGrouped:
       fallthrough
-#endif
     default:
       return """
 List {
