@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
   var body: some View {
-    NavigationStack {
+    NavigationSplitView {
       List {
-        Section("Components") { 
+        Section("Components") {
           NavigationLink("Buttons") {
             ButtonExamplesView()
           }
@@ -30,6 +30,8 @@ struct ContentView: View {
         }
       }
       .navigationTitle("SwiftUI Examples")
+    } detail: {
+      ContentUnavailableView("Use sidebar navigation", systemImage: "sidebar.left")
     }
   }
 }
