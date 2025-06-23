@@ -1,22 +1,25 @@
+#if canImport(UIKit)
 import UIKit
 import SwiftUI
 
 final class AnyDistanceFlickeringUIImageView: UIImageView {
-
   // MARK: - Variables
+
   private var isLowered: Bool = false
   private var flickerCount: Int = 0
 
   // MARK: - Constants
+
   private let numFlickers: Int = 8
 
   // MARK: - Lifecycle
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     commonInit()
   }
 
-  convenience override init(image: UIImage?) {
+  override convenience init(image: UIImage?) {
     self.init(frame: .zero)
     self.image = image
   }
@@ -36,6 +39,7 @@ final class AnyDistanceFlickeringUIImageView: UIImageView {
   }
 
   // MARK: - Animation
+
   private func startAnimation() {
     startGlowing()
     continueFlickering()
@@ -107,4 +111,42 @@ struct AnyDistanceFlickeringImage: UIViewRepresentable {
   func updateUIView(_ uiView: AnyDistanceFlickeringUIImageView, context: Context) {
     // No dynamic updates needed.
   }
-} 
+}
+
+/// Placeholder shown when the flickering neon effect is unavailable on the current platform.
+struct AnyDistanceFlickeringImage: View {
+  public let imageName: String
+
+  public init(imageName: String) {
+    self.imageName = imageName
+  }
+
+  var body: some View {
+    ContentUnavailableView("Neon flicker effect is not supported on this platform", systemImage: "pc")
+  }
+}
+
+struct AnyDistanceFlickeringImageShowcaseView: View {
+  var body: some View {
+    VStack(spacing: 32) {
+      AnyDistanceFlickeringImage(imageName: "madewithsoul")
+        .frame(width: 250, height: 250)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .preferredColorScheme(.dark)
+    .navigationTitle("Neon Flicker")
+  }
+}
+
+#else
+
+import SwiftUI
+
+struct AnyDistanceFlickeringImageShowcaseView: View {
+  var body: some View {
+    ContentUnavailableView("Neon flicker effect is not supported on this platform", systemImage: "pc")
+      .navigationTitle("Neon Flicker")
+  }
+}
+
+#endif

@@ -12,7 +12,7 @@ struct AnyDistanceAnimationsView: View {
         AnyDistanceMetalGradientShowcaseView()
       }
       NavigationLink("Neon Flickering Image") {
-        AnyDistanceNeonFlickerExampleView()
+        AnyDistanceFlickeringImageShowcaseView()
       }
     }
     .navigationTitle("Any Distance Animations")

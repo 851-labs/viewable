@@ -1,3 +1,6 @@
+// This file conditionally provides either the full countdown implementation (iOS) or
+// a placeholder view (macOS and other platforms).
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
 
@@ -15,6 +18,7 @@ struct AnyDistanceDarkBlurView: UIViewRepresentable {
   func makeUIView(context: Context) -> UIVisualEffectView {
     UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
   }
+
   func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
 
@@ -33,7 +37,7 @@ struct AnyDistanceCountdownView: View {
   var finishedAction: () -> Void
 
   private func xOffset() -> CGFloat {
-    let c = animationStep.clamped(to: 0...3)
+    let c = animationStep.clamped(to: 0 ... 3)
     return c > 0 ? 60 * (c - 1) - 10 : -90
   }
 
@@ -134,6 +138,20 @@ struct AnyDistanceCountdownShowcaseView: View {
   }
 }
 
-#Preview("AnyDistance Countdown") {
+#else
+
+import SwiftUI
+
+struct AnyDistanceCountdownShowcaseView: View {
+  var body: some View {
+    ContentUnavailableView("3-2-1 countdown is unavailable on this platform", systemImage: "pc")
+      .navigationTitle("3-2-1 Go")
+  }
+}
+
+#endif
+
+#Preview("AnyDistance Countdown (macOS)") {
   NavigationStack { AnyDistanceCountdownShowcaseView() }
-} 
+}
+

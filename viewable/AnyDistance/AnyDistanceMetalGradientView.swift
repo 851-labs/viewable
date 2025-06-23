@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import MetalKit
 import SwiftUI
 
@@ -159,6 +160,19 @@ struct AnyDistanceMetalGradientShowcaseView: View {
     .navigationTitle("Gradient Animation")
   }
 }
+
+#else
+
+import SwiftUI
+
+struct AnyDistanceMetalGradientShowcaseView: View {
+  var body: some View {
+    ContentUnavailableView("Gradient animation is unavailable on this platform", systemImage: "pc")
+      .navigationTitle("Gradient Animation")
+  }
+}
+
+#endif
 
 #Preview("AnyDistance Gradient") {
   NavigationStack { AnyDistanceMetalGradientShowcaseView() }
