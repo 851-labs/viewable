@@ -27,7 +27,7 @@ struct ColorPickerExample: View {
       colorPicker
         .contextMenu {
           Button("Copy Code") {
-            UIPasteboard.general.string = fullCode ?? generateDefaultCode()
+            (fullCode ?? generateDefaultCode()).copyToClipboard()
           }
         }
     } header: {

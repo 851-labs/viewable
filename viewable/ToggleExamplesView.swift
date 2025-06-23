@@ -27,7 +27,7 @@ struct ToggleExample: View {
       toggle
         .contextMenu {
           Button("Copy Code") {
-            UIPasteboard.general.string = fullCode ?? generateDefaultCode()
+            (fullCode ?? generateDefaultCode()).copyToClipboard()
           }
         }
     } header: {
