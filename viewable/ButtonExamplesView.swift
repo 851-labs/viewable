@@ -90,7 +90,7 @@ struct ButtonExamplesView: View {
         )
       } header: {
         HStack {
-          Text("Button Styles")
+          Text("Styles")
           Spacer()
           Text(".buttonStyle()")
             .font(.system(.caption2, design: .monospaced))
@@ -151,7 +151,7 @@ Button("Mini") {
         )
       } header: {
         HStack {
-          Text("Button Sizes")
+          Text("Sizes")
           Spacer()
           Text(".controlSize()")
             .font(.system(.caption2, design: .monospaced))
