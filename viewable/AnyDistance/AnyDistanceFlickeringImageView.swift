@@ -11,7 +11,7 @@ struct AnyDistanceNeonFlickerInfoModifier: ViewModifier {
     content
       .navigationTitle("Neon Flickering Image")
       .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem {
           Button("Information", systemImage: "info.circle") {
             isPresented = true
           }
@@ -30,9 +30,11 @@ struct AnyDistanceNeonFlickerInfoModifier: ViewModifier {
           }
           .navigationTitle("Any Distance Goes Open Source")
           .navigationSubtitle("Spotted in Prod")
+          #if !os(macOS)
           .navigationBarTitleDisplayMode(.inline)
+          #endif
           .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .cancellationAction) {
               Button("Close", systemImage: "xmark") {
                 isPresented = false
               }

@@ -9,7 +9,7 @@ struct AnyDistanceMetalGradientInfoModifier: ViewModifier {
     content
       .navigationTitle("Metal Gradient Animation")
       .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem {
           Button("Information", systemImage: "info.circle") {
             isPresented = true
           }
@@ -28,14 +28,16 @@ struct AnyDistanceMetalGradientInfoModifier: ViewModifier {
           }
           .navigationTitle("Any Distance Goes Open Source")
           .navigationSubtitle("Spotted in Prod")
-          .navigationBarTitleDisplayMode(.inline)
-          .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-              Button("Close", systemImage: "xmark") {
-                isPresented = false
+#if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
+            .toolbar {
+              ToolbarItem(placement: .cancellationAction) {
+                Button("Close", systemImage: "xmark") {
+                  isPresented = false
+                }
               }
             }
-          }
         }
         .presentationDetents([.medium])
       }
