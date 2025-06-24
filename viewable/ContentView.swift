@@ -30,6 +30,9 @@ struct ContentView: View {
           NavigationLink("Lists") {
             ListExamplesView()
           }
+          NavigationLink("Forms") {
+            FormExamplesView()
+          }
         }
 
         Section("Showcase") {
