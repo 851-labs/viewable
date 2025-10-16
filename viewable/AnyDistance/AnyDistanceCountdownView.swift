@@ -1,68 +1,13 @@
 import SwiftUI
 
-/// Provides the common navigation title, toolbar info button, and inspector
-/// used in both the UIKit-powered and fallback showcase views for the Any
-/// Distance 3-2-1-Go countdown.
-struct AnyDistanceCountdownInfoModifier: ViewModifier {
-  @Environment(\.openURL) private var openURL
-  
-  private let articleURL = URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!
-  private let sourceCodeURL = URL(string: "https://github.com/851-labs/viewable/blob/main/viewable/AnyDistance/AnyDistanceCountdownView.swift")!
-  
-  func body(content: Content) -> some View {
-    content
-      .navigationTitle("3-2-1 Go")
-      .navigationSubtitle("AnyDistance")
-      .toolbar {
-        ToolbarItemGroup {
-          Button {
-            openURL(articleURL)
-          } label: {
-            Label("View article", systemImage: "book.pages")
-          }
-          Button {
-            openURL(sourceCodeURL)
-          } label: {
-            Label("View source code", systemImage: "curlybraces")
-          }
-        }
-      }
-  }
-}
-
-extension View {
-  /// Applies the 3-2-1-Go countdown navigation title, info toolbar button, and inspector.
-  func anyDistanceCountdownInfo() -> some View {
-    modifier(AnyDistanceCountdownInfoModifier())
-  }
-}
-
-#if canImport(UIKit)
-
-import UIKit
-
-// MARK: - Utility Extensions
-
-// MARK: - Dark Blur (UIKit-backed) View
-
-struct AnyDistanceDarkBlurView: UIViewRepresentable {
-  func makeUIView(context: Context) -> UIVisualEffectView {
-    UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-  }
-
-  func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
-}
-
 // MARK: - AnyDistanceCountdownView
 
 /// Prefixed Any Distance-style 3-2-1-Go countdown.
 struct AnyDistanceCountdownView: View {
-  private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
-  private let startGenerator = UINotificationFeedbackGenerator()
-
   @State private var animationStep: CGFloat = 4 // 4→3→2→1→0 (GO)
   @State private var animationTimer: Timer?
   @State private var isFinished = false
+  @State private var hapticTrigger = 0
 
   @Binding var skip: Bool
   var finishedAction: () -> Void
@@ -88,11 +33,7 @@ struct AnyDistanceCountdownView: View {
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-          if animationStep < 4 && animationStep > 0 {
-            impactGenerator.impactOccurred()
-          } else if animationStep == 0 {
-            startGenerator.notificationOccurred(.success)
-          }
+          hapticTrigger += 1
         }
       }
     }
@@ -101,7 +42,9 @@ struct AnyDistanceCountdownView: View {
   var body: some View {
     VStack {
       ZStack {
-        AnyDistanceDarkBlurView()
+        Color.clear
+          .background(.ultraThinMaterial)
+          .environment(\.colorScheme, .dark)
 
         HStack(spacing: 0) {
           Text("3").font(.system(size: 89, weight: .semibold)).frame(width: 60)
@@ -128,9 +71,16 @@ struct AnyDistanceCountdownView: View {
       .blur(radius: isFinished ? 6 : 0)
       .opacity(animationStep < 4 ? 1 : 0)
       .scaleEffect(animationStep < 4 ? 1 : 0.8)
+      .sensoryFeedback(.impact(weight: .heavy, intensity: 0.8), trigger: hapticTrigger) { oldValue, newValue in
+        let step = Int(animationStep)
+        return newValue != oldValue && step > 0 && step < 4
+      }
+      .sensoryFeedback(.success, trigger: hapticTrigger) { oldValue, newValue in
+        newValue != oldValue && Int(animationStep) == 0
+      }
     }
-    .onChange(of: skip) { newVal in
-      if newVal {
+    .onChange(of: skip) { _, newValue in
+      if newValue {
         animationTimer?.invalidate()
         withAnimation(.easeIn(duration: 0.15)) { isFinished = true }
         finishedAction()
@@ -146,40 +96,75 @@ struct AnyDistanceCountdownView: View {
 // MARK: - Showcase container
 
 struct AnyDistanceCountdownShowcaseView: View {
+  @Environment(\.openURL) private var openURL
+
   @State private var skip = false
   @State private var done = false
+  @State private var resetTrigger = 0
+  @State private var isInspectorPresented = true
 
   var body: some View {
     VStack(spacing: 24) {
       AnyDistanceCountdownView(skip: $skip) { done = true }
+        .id(resetTrigger)
 
       if done {
         Label("Start!", systemImage: "checkmark.circle.fill")
           .font(.title.bold())
           .foregroundStyle(.green)
           .transition(.move(edge: .bottom).combined(with: .opacity))
+          .padding(.bottom)
       }
-
-      Button("Skip") { skip = true }
-        .buttonStyle(.bordered)
-        .opacity(done ? 0 : 1)
     }
+    .padding()
     .animation(.easeInOut, value: done)
-    .anyDistanceCountdownInfo()
+    .navigationTitle("3-2-1 Go")
+    .navigationSubtitle("AnyDistance")
+    .toolbar {
+      ToolbarItemGroup {
+        Button {
+          openURL(URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
+        } label: {
+          Label("View article", systemImage: "book.pages")
+        }
+        Button {
+          openURL(URL(string: "https://github.com/851-labs/viewable/blob/main/viewable/AnyDistance/AnyDistanceCountdownView.swift")!)
+        } label: {
+          Label("View source code", systemImage: "curlybraces")
+        }
+      }
+      ToolbarSpacer()
+      ToolbarItem {
+        Button {
+          isInspectorPresented.toggle()
+        } label: {
+          Label("Controls", systemImage: "info.circle")
+        }
+      }
+    }
+    .inspector(isPresented: $isInspectorPresented) {
+      Form {
+        Section("Controls") {
+          Button {
+            skip = true
+          } label: {
+            Label("Skip", systemImage: "forward.fill")
+          }
+          .disabled(done)
+
+          Button {
+            skip = false
+            done = false
+            resetTrigger += 1
+          } label: {
+            Label("Reset", systemImage: "arrow.counterclockwise")
+          }
+        }
+      }
+    }
   }
 }
 
-#else
-
-struct AnyDistanceCountdownShowcaseView: View {
-  var body: some View {
-    ContentUnavailableView("3-2-1 countdown is unavailable on this platform", systemImage: "pc")
-      .anyDistanceCountdownInfo()
-  }
-}
-
-#endif
-
-#Preview("AnyDistance Countdown (macOS)") {
+#Preview("AnyDistance Countdown") {
   NavigationStack { AnyDistanceCountdownShowcaseView() }
 }
