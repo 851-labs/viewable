@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// Provides the common navigation title, toolbar info button, and info sheet
+/// Provides the common navigation title, toolbar info button, and inspector
 /// used in both the UIKit-powered and fallback showcase views for the Any
 /// Distance 3-2-1-Go countdown.
 struct AnyDistanceCountdownInfoModifier: ViewModifier {
-  @State private var isPresented: Bool = false
+  @State private var isPresented: Bool = true
 
   func body(content: Content) -> some View {
     content
@@ -12,41 +12,45 @@ struct AnyDistanceCountdownInfoModifier: ViewModifier {
       .toolbar {
         ToolbarItem {
           Button("Information", systemImage: "info.circle") {
-            isPresented = true
+            isPresented.toggle()
           }
         }
       }
-      .sheet(isPresented: $isPresented) {
-        NavigationView {
-          ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-              Text("This is our classic countdown timer written in SwiftUI. It's a good example of how stacking lots of different SwiftUI modifiers (scaleEffect, opacity, blur) can let you create more complex animations.")
-                .italic()
-                .padding()
-              Link("View full article", destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
-                .padding(.horizontal)
-            }
-          }
-          .navigationTitle("Any Distance Goes Open Source")
-          .navigationSubtitle("Spotted in Prod")
-          #if !os(macOS)
-          .navigationBarTitleDisplayMode(.inline)
-          #endif
-          .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-              Button("Close", systemImage: "xmark") {
-                isPresented = false
+      .inspector(isPresented: $isPresented) {
+        Form {
+          Section {
+            Text("\"This is our classic countdown timer written in SwiftUI. It's a good example of how stacking lots of different SwiftUI modifiers (scaleEffect, opacity, blur) can let you create more complex animations.\"")
+          } footer: {
+            HStack(spacing: 6) {
+              Spacer()
+              Link(destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!) {
+                Label("View full article", systemImage: "book.pages")
               }
+              .buttonStyle(.bordered)
+              .labelStyle(.iconOnly)
+              .clipShape(Circle())
+              .aspectRatio(1, contentMode: .fit)
+
+              Link(destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!) {
+                Label("View full article", systemImage: "hammer")
+              }
+              .buttonStyle(.bordered)
+              .labelStyle(.iconOnly)
+              .clipShape(Circle())
+              .aspectRatio(1, contentMode: .fit)
             }
           }
         }
-        .presentationDetents([.medium])
+
+        .navigationTitle("Any Distance Goes Open Source")
+        .navigationSubtitle("Spotted in Prod")
+        .inspectorColumnWidth(min: 200, ideal: 300, max: 400)
       }
   }
 }
 
 extension View {
-  /// Applies the 3-2-1-Go countdown navigation title, info toolbar button, and info sheet.
+  /// Applies the 3-2-1-Go countdown navigation title, info toolbar button, and inspector.
   func anyDistanceCountdownInfo() -> some View {
     modifier(AnyDistanceCountdownInfoModifier())
   }

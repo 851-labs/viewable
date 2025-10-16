@@ -32,18 +32,18 @@ struct ButtonExample: View {
     }
     .contextMenu {
       Button("Copy Code") {
-                    (fullCode ?? generateDefaultCode()).copyToClipboard()
+        (fullCode ?? generateDefaultCode()).copyToClipboard()
       }
     }
   }
   
   private func generateDefaultCode() -> String {
     return """
-Button("Button") {
-  
-}
-\(code == ".buttonStyle(.automatic)" ? "" : code)
-"""
+    Button("Button") {
+    
+    }
+    \(code == ".buttonStyle(.automatic)" ? "" : code)
+    """
   }
 }
 
@@ -55,41 +55,39 @@ struct ButtonExamplesView: View {
       Section {
         ButtonExample(
           title: "Automatic Button",
-          button: AnyView(Button("Button") { }),
+          button: AnyView(Button("Button") {}),
           code: "automatic"
         )
         
         ButtonExample(
           title: "Borderless Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderless)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderless)),
           code: "borderless"
         )
         
         ButtonExample(
           title: "Plain Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.plain)),
+          button: AnyView(Button("Button") {}.buttonStyle(.plain)),
           code: "plain"
         )
         
         ButtonExample(
           title: "Bordered Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.bordered)),
+          button: AnyView(Button("Button") {}.buttonStyle(.bordered)),
           code: "bordered"
         )
         
         ButtonExample(
           title: "Bordered Prominent",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderedProminent)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderedProminent)),
           code: "borderedProminent"
         )
         
-        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
-          ButtonExample(
-            title: "Glass Button",
-            button: AnyView(Button("Button") {  }.buttonStyle(.glass)),
-            code: "glass"
-          )
-        }
+        ButtonExample(
+          title: "Glass Button",
+          button: AnyView(Button("Button") {}.buttonStyle(.glass)),
+          code: "glass"
+        )
       } header: {
         HStack {
           Text("Styles")
@@ -102,54 +100,54 @@ struct ButtonExamplesView: View {
       Section {
         ButtonExample(
           title: "Large Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderedProminent).controlSize(.large)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderedProminent).controlSize(.large)),
           code: "large",
           fullCode: """
-Button("Large") {
-  
-}
-.buttonStyle(.borderedProminent)
-.controlSize(.large)
-"""
+          Button("Large") {
+          
+          }
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
+          """
         )
         
         ButtonExample(
           title: "Regular Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderedProminent).controlSize(.regular)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderedProminent).controlSize(.regular)),
           code: "regular",
           fullCode: """
-Button("Regular") {
-  
-}
-.buttonStyle(.borderedProminent)
-.controlSize(.regular)
-"""
+          Button("Regular") {
+          
+          }
+          .buttonStyle(.borderedProminent)
+          .controlSize(.regular)
+          """
         )
         
         ButtonExample(
           title: "Small Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderedProminent).controlSize(.small)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderedProminent).controlSize(.small)),
           code: "small",
           fullCode: """
-Button("Small") {
-  
-}
-.buttonStyle(.borderedProminent)
-.controlSize(.small)
-"""
+          Button("Small") {
+          
+          }
+          .buttonStyle(.borderedProminent)
+          .controlSize(.small)
+          """
         )
         
         ButtonExample(
           title: "Mini Button",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderedProminent).controlSize(.mini)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderedProminent).controlSize(.mini)),
           code: "mini",
           fullCode: """
-Button("Mini") {
-  
-}
-.buttonStyle(.borderedProminent)
-.controlSize(.mini)
-"""
+          Button("Mini") {
+          
+          }
+          .buttonStyle(.borderedProminent)
+          .controlSize(.mini)
+          """
         )
       } header: {
         HStack {
@@ -163,47 +161,28 @@ Button("Mini") {
       Section {
         ButtonExample(
           title: "Label Button",
-          button: AnyView(Button {  } label: { Label("Add Item", systemImage: "plus") }.buttonStyle(.borderedProminent)),
+          button: AnyView(Button {} label: { Label("Add Item", systemImage: "plus") }),
           code: "Label(\"Add Item\", systemImage: \"plus\")",
           fullCode: """
-Button {
-  
-} label: {
-  Label("Add Item", systemImage: "plus")
-}
-.buttonStyle(.borderedProminent)
-"""
-        )
-        
-        ButtonExample(
-          title: "Image Button",
-          button: AnyView(Button {  } label: { HStack { Image(systemName: "heart.fill"); Text("Favorite") } }.buttonStyle(.bordered)),
-          code: "Image(systemName: \"heart.fill\")",
-          fullCode: """
-Button {
-  
-} label: {
-  HStack {
-    Image(systemName: "heart.fill")
-    Text("Favorite")
-  }
-}
-.buttonStyle(.bordered)
-"""
+          Button {
+          
+          } label: {
+            Label("Add Item", systemImage: "plus")
+          }
+          """
         )
         
         ButtonExample(
           title: "Icon Only Button",
-          button: AnyView(Button {  } label: { Image(systemName: "star.fill") }.buttonStyle(.borderedProminent)),
+          button: AnyView(Button {} label: { Image(systemName: "star.fill") }),
           code: "Image(systemName: \"star.fill\")",
           fullCode: """
-Button {
-  
-} label: {
-  Image(systemName: "star.fill")
-}
-.buttonStyle(.borderedProminent)
-"""
+          Button {
+          
+          } label: {
+            Image(systemName: "star.fill")
+          }
+          """
         )
       } header: {
         HStack {
@@ -215,76 +194,74 @@ Button {
       Section {
         ButtonExample(
           title: "Disabled Automatic",
-          button: AnyView(Button("Button") {  }.disabled(true)),
+          button: AnyView(Button("Button") {}.disabled(true)),
           code: "automatic"
         )
         
         ButtonExample(
           title: "Disabled Borderless",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderless).disabled(true)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderless).disabled(true)),
           code: "borderless",
           fullCode: """
-Button("Button") {
-  
-}
-.buttonStyle(.borderless)
-.disabled(true)
-"""
+          Button("Button") {
+          
+          }
+          .buttonStyle(.borderless)
+          .disabled(true)
+          """
         )
         
         ButtonExample(
           title: "Disabled Plain",
-          button: AnyView(Button("Button") {  }.buttonStyle(.plain).disabled(true)),
+          button: AnyView(Button("Button") {}.buttonStyle(.plain).disabled(true)),
           code: "plain",
           fullCode: """
-Button("Button") {
-  
-}
-.buttonStyle(.plain)
-.disabled(true)
-"""
+          Button("Button") {
+          
+          }
+          .buttonStyle(.plain)
+          .disabled(true)
+          """
         )
         
         ButtonExample(
           title: "Disabled Bordered",
-          button: AnyView(Button("Button") {  }.buttonStyle(.bordered).disabled(true)),
+          button: AnyView(Button("Button") {}.buttonStyle(.bordered).disabled(true)),
           code: "bordered",
           fullCode: """
-Button("Button") {
-  
-}
-.buttonStyle(.bordered)
-.disabled(true)
-"""
+          Button("Button") {
+          
+          }
+          .buttonStyle(.bordered)
+          .disabled(true)
+          """
         )
         
         ButtonExample(
           title: "Disabled Prominent",
-          button: AnyView(Button("Button") {  }.buttonStyle(.borderedProminent).disabled(true)),
+          button: AnyView(Button("Button") {}.buttonStyle(.borderedProminent).disabled(true)),
           code: "borderedProminent",
           fullCode: """
-Button("Button") {
-  
-}
-.buttonStyle(.borderedProminent)
-.disabled(true)
-"""
+          Button("Button") {
+          
+          }
+          .buttonStyle(.borderedProminent)
+          .disabled(true)
+          """
         )
         
-        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
-          ButtonExample(
-            title: "Disabled Glass",
-            button: AnyView(Button("Button") {  }.buttonStyle(.glass).disabled(true)),
-            code: "glass",
-            fullCode: """
-Button("Button") {
-  
-}
-.buttonStyle(.glass)
-.disabled(true)
-"""
-          )
-        }
+        ButtonExample(
+          title: "Disabled Glass",
+          button: AnyView(Button("Button") {}.buttonStyle(.glass).disabled(true)),
+          code: "glass",
+          fullCode: """
+          Button("Button") {
+          
+          }
+          .buttonStyle(.glass)
+          .disabled(true)
+          """
+        )
       } header: {
         HStack {
           Text("Disabled States")
@@ -297,162 +274,78 @@ Button("Button") {
       Section {
         ButtonExample(
           title: "Destructive Automatic",
-          button: AnyView(Button("Button", role: .destructive) {  }),
+          button: AnyView(Button("Button", role: .destructive) {}),
           code: "automatic",
           fullCode: """
-Button("Button", role: .destructive) {
-  
-}
-"""
+          Button("Button", role: .destructive) {
+          
+          }
+          """
         )
         
         ButtonExample(
           title: "Destructive Borderless",
-          button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.borderless)),
+          button: AnyView(Button("Button", role: .destructive) {}.buttonStyle(.borderless)),
           code: "borderless",
           fullCode: """
-Button("Button", role: .destructive) {
-  
-}
-.buttonStyle(.borderless)
-"""
+          Button("Button", role: .destructive) {
+          
+          }
+          .buttonStyle(.borderless)
+          """
         )
         
         ButtonExample(
           title: "Destructive Plain",
-          button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.plain)),
+          button: AnyView(Button("Button", role: .destructive) {}.buttonStyle(.plain)),
           code: "plain",
           fullCode: """
-Button("Button", role: .destructive) {
-  
-}
-.buttonStyle(.plain)
-"""
+          Button("Button", role: .destructive) {
+          
+          }
+          .buttonStyle(.plain)
+          """
         )
         
         ButtonExample(
           title: "Destructive Bordered",
-          button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.bordered)),
+          button: AnyView(Button("Button", role: .destructive) {}.buttonStyle(.bordered)),
           code: "bordered",
           fullCode: """
-Button("Button", role: .destructive) {
-  
-}
-.buttonStyle(.bordered)
-"""
+          Button("Button", role: .destructive) {
+          
+          }
+          .buttonStyle(.bordered)
+          """
         )
         
         ButtonExample(
           title: "Destructive Prominent",
-          button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.borderedProminent)),
+          button: AnyView(Button("Button", role: .destructive) {}.buttonStyle(.borderedProminent)),
           code: "borderedProminent",
           fullCode: """
-Button("Button", role: .destructive) {
-  
-}
-.buttonStyle(.borderedProminent)
-"""
+          Button("Button", role: .destructive) {
+          
+          }
+          .buttonStyle(.borderedProminent)
+          """
         )
         
-        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
-          ButtonExample(
-            title: "Destructive Glass",
-            button: AnyView(Button("Button", role: .destructive) {  }.buttonStyle(.glass)),
-            code: "glass",
-            fullCode: """
-Button("Button", role: .destructive) {
-  
-}
-.buttonStyle(.glass)
-"""
-          )
-        }
+        ButtonExample(
+          title: "Destructive Glass",
+          button: AnyView(Button("Button", role: .destructive) {}.buttonStyle(.glass)),
+          code: "glass",
+          fullCode: """
+          Button("Button", role: .destructive) {
+          
+          }
+          .buttonStyle(.glass)
+          """
+        )
       } header: {
         HStack {
           Text("Destructive Buttons")
           Spacer()
-        }
-      }
-      
-      Section {
-        ButtonExample(
-          title: "Gradient Button",
-          button: AnyView(
-            Button("Gradient") {  }
-              .foregroundStyle(.white)
-              .padding()
-              .background(LinearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing))
-              .clipShape(RoundedRectangle(cornerRadius: 12))
-          ),
-          code: ".background(LinearGradient(...))",
-          fullCode: """
-Button("Gradient") {
-  
-}
-.foregroundStyle(.white)
-.padding()
-.background(
-  LinearGradient(
-    colors: [.blue, .purple],
-    startPoint: .leading,
-    endPoint: .trailing
-  )
-)
-.clipShape(RoundedRectangle(cornerRadius: 12))
-"""
-        )
-        
-        ButtonExample(
-          title: "Material Button",
-          button: AnyView(
-            Button("Material") {  }
-              .foregroundStyle(.primary)
-              .padding()
-              .background(.ultraThinMaterial)
-              .clipShape(RoundedRectangle(cornerRadius: 12))
-              .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
-          ),
-          code: ".background(.ultraThinMaterial)",
-          fullCode: """
-Button("Material") {
-  
-}
-.foregroundStyle(.primary)
-.padding()
-.background(.ultraThinMaterial)
-.clipShape(RoundedRectangle(cornerRadius: 12))
-.shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
-"""
-        )
-        
-        ButtonExample(
-          title: "Capsule Button",
-          button: AnyView(
-            Button("Capsule") {  }
-              .foregroundStyle(.white)
-              .padding(.horizontal, 24)
-              .padding(.vertical, 12)
-              .background(.mint)
-              .clipShape(Capsule())
-          ),
-          code: ".clipShape(Capsule())",
-          fullCode: """
-Button("Capsule") {
-  
-}
-.foregroundStyle(.white)
-.padding(.horizontal, 24)
-.padding(.vertical, 12)
-.background(.mint)
-.clipShape(Capsule())
-"""
-        )
-      } header: {
-        HStack {
-          Text("Custom Styled Buttons")
-          Spacer()
-          Text("custom modifiers")
-            .font(.system(.caption2, design: .monospaced))
         }
       }
     }

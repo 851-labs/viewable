@@ -12,12 +12,21 @@ import SwiftUI
 struct Page: Identifiable, Hashable {
   let id: String
   let title: String
-  let destination: AnyView
+  let destination: AnyView?
+  let children: [Page]
   
   init(id: String, title: String, @ViewBuilder destination: () -> some View) {
     self.id = id
     self.title = title
     self.destination = AnyView(destination())
+    self.children = []
+  }
+  
+  init(id: String, title: String, @PageBuilder pages children: () -> [Page]) {
+    self.id = id
+    self.title = title
+    self.destination = nil
+    self.children = children()
   }
   
   static func == (lhs: Page, rhs: Page) -> Bool {
@@ -29,7 +38,37 @@ struct Page: Identifiable, Hashable {
   }
   
   func matches(searchText: String) -> Bool {
-    title.localizedCaseInsensitiveContains(searchText)
+    title.localizedCaseInsensitiveContains(searchText) || 
+    children.contains(where: { $0.matches(searchText: searchText) })
+  }
+  
+  func flattenedPages() -> [Page] {
+    if children.isEmpty {
+      return [self]
+    }
+    return [self] + children.flatMap { $0.flattenedPages() }
+  }
+  
+  fileprivate init(id: String, title: String, children: [Page]) {
+    self.id = id
+    self.title = title
+    self.destination = nil
+    self.children = children
+  }
+}
+
+@resultBuilder
+struct PageBuilder {
+  static func buildBlock(_ pages: Page...) -> [Page] {
+    Array(pages)
+  }
+  
+  static func buildExpression(_ page: Page) -> Page {
+    page
+  }
+  
+  static func buildArray(_ pages: [Page]) -> [Page] {
+    pages
   }
 }
 
@@ -52,7 +91,16 @@ struct SidebarSection: Identifiable {
   
   func filtered(by searchText: String) -> [Page] {
     guard !searchText.isEmpty else { return pages }
-    return pages.filter { $0.matches(searchText: searchText) }
+    return pages.compactMap { page in
+      if page.matches(searchText: searchText) {
+        return page
+      }
+      let matchingChildren = page.children.filter { $0.matches(searchText: searchText) }
+      if !matchingChildren.isEmpty {
+        return Page(id: page.id, title: page.title, children: matchingChildren)
+      }
+      return nil
+    }
   }
 }
 
@@ -100,8 +148,19 @@ extension ContentView {
     }
     
     SidebarSection(title: "Showcase") {
-      Page(id: "anyDistance", title: "Any Distance") {
-        AnyDistanceAnimationsView()
+      Page(id: "anyDistance", title: "Any Distance", pages: {
+        Page(id: "countdown", title: "3-2-1 Go") {
+          AnyDistanceCountdownShowcaseView()
+        }
+        Page(id: "metalGradient", title: "Metal Gradient") {
+          AnyDistanceMetalGradientShowcaseView()
+        }
+        Page(id: "flickeringImage", title: "Neon Flickering") {
+          AnyDistanceFlickeringImageShowcaseView()
+        }
+      })
+      Page(id: "githubGraph", title: "GitHub Graph") {
+        GitHubContributionGraphView()
       }
     }
   }
@@ -110,7 +169,11 @@ extension ContentView {
 // MARK: - Content View
 
 struct ContentView: View {
-  @State private var selectedPage: Page? = Self.sidebarSections.first?.pages.first
+  @State private var selectedPage: Page? = {
+    Self.sidebarSections
+      .first?.pages
+      .first(where: { $0.destination != nil })
+  }()
   @State private var searchText: String = ""
   
   private var filteredSections: [SidebarSection] {
@@ -131,8 +194,20 @@ struct ContentView: View {
           ForEach(filteredSections) { section in
             Section(section.title) {
               ForEach(section.pages) { page in
-                NavigationLink(value: page) {
-                  Text(page.title)
+                if page.children.isEmpty {
+                  NavigationLink(value: page) {
+                    Text(page.title)
+                  }
+                } else {
+                  DisclosureGroup {
+                    ForEach(page.children) { child in
+                      NavigationLink(value: child) {
+                        Text(child.title)
+                      }
+                    }
+                  } label: {
+                    Text(page.title)
+                  }
                 }
               }
             }
@@ -148,9 +223,9 @@ struct ContentView: View {
         .navigationTitle("SwiftUI Examples")
       }
     } detail: {
-      if let selectedPage {
+      if let selectedPage, let destination = selectedPage.destination {
         NavigationStack {
-          selectedPage.destination
+          destination
         }
       } else {
         ContentUnavailableView(
