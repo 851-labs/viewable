@@ -35,11 +35,11 @@ struct ContentView: View {
           }
         }
 
-        Section("Showcase") {
-          NavigationLink("Any Distance") {
-            AnyDistanceAnimationsView()
-          }
-        }
+         Section("Showcase") {
+           NavigationLink("Any Distance") {
+             AnyDistanceAnimationsView()
+           }
+         }
       }
       .navigationTitle("SwiftUI Examples")
     }

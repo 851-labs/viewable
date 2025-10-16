@@ -6,27 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXContainerItemProxy section */
-		BC7B03212DFEAE11008FF816 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC7B03092DFEAE0E008FF816 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BC7B03102DFEAE0E008FF816;
-			remoteInfo = viewable;
-		};
-		BC7B032B2DFEAE11008FF816 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC7B03092DFEAE0E008FF816 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BC7B03102DFEAE0E008FF816;
-			remoteInfo = viewable;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		BC7B03112DFEAE0E008FF816 /* viewable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = viewable.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC7B03202DFEAE11008FF816 /* viewableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = viewableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC7B032A2DFEAE11008FF816 /* viewableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = viewableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,34 +16,10 @@
 			path = viewable;
 			sourceTree = "<group>";
 		};
-		BC7B03232DFEAE11008FF816 /* viewableTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = viewableTests;
-			sourceTree = "<group>";
-		};
-		BC7B032D2DFEAE11008FF816 /* viewableUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = viewableUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BC7B030E2DFEAE0E008FF816 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC7B031D2DFEAE11008FF816 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC7B03272DFEAE11008FF816 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,8 +33,6 @@
 			isa = PBXGroup;
 			children = (
 				BC7B03132DFEAE0E008FF816 /* viewable */,
-				BC7B03232DFEAE11008FF816 /* viewableTests */,
-				BC7B032D2DFEAE11008FF816 /* viewableUITests */,
 				BC7B03122DFEAE0E008FF816 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,8 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				BC7B03112DFEAE0E008FF816 /* viewable.app */,
-				BC7B03202DFEAE11008FF816 /* viewableTests.xctest */,
-				BC7B032A2DFEAE11008FF816 /* viewableUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,52 +70,6 @@
 			productReference = BC7B03112DFEAE0E008FF816 /* viewable.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BC7B031F2DFEAE11008FF816 /* viewableTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BC7B03372DFEAE11008FF816 /* Build configuration list for PBXNativeTarget "viewableTests" */;
-			buildPhases = (
-				BC7B031C2DFEAE11008FF816 /* Sources */,
-				BC7B031D2DFEAE11008FF816 /* Frameworks */,
-				BC7B031E2DFEAE11008FF816 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BC7B03222DFEAE11008FF816 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				BC7B03232DFEAE11008FF816 /* viewableTests */,
-			);
-			name = viewableTests;
-			packageProductDependencies = (
-			);
-			productName = viewableTests;
-			productReference = BC7B03202DFEAE11008FF816 /* viewableTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		BC7B03292DFEAE11008FF816 /* viewableUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BC7B033A2DFEAE11008FF816 /* Build configuration list for PBXNativeTarget "viewableUITests" */;
-			buildPhases = (
-				BC7B03262DFEAE11008FF816 /* Sources */,
-				BC7B03272DFEAE11008FF816 /* Frameworks */,
-				BC7B03282DFEAE11008FF816 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BC7B032C2DFEAE11008FF816 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				BC7B032D2DFEAE11008FF816 /* viewableUITests */,
-			);
-			name = viewableUITests;
-			packageProductDependencies = (
-			);
-			productName = viewableUITests;
-			productReference = BC7B032A2DFEAE11008FF816 /* viewableUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,14 +82,6 @@
 				TargetAttributes = {
 					BC7B03102DFEAE0E008FF816 = {
 						CreatedOnToolsVersion = 26.0;
-					};
-					BC7B031F2DFEAE11008FF816 = {
-						CreatedOnToolsVersion = 26.0;
-						TestTargetID = BC7B03102DFEAE0E008FF816;
-					};
-					BC7B03292DFEAE11008FF816 = {
-						CreatedOnToolsVersion = 26.0;
-						TestTargetID = BC7B03102DFEAE0E008FF816;
 					};
 				};
 			};
@@ -201,28 +100,12 @@
 			projectRoot = "";
 			targets = (
 				BC7B03102DFEAE0E008FF816 /* viewable */,
-				BC7B031F2DFEAE11008FF816 /* viewableTests */,
-				BC7B03292DFEAE11008FF816 /* viewableUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BC7B030F2DFEAE0E008FF816 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC7B031E2DFEAE11008FF816 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC7B03282DFEAE11008FF816 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,34 +122,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC7B031C2DFEAE11008FF816 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC7B03262DFEAE11008FF816 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BC7B03222DFEAE11008FF816 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BC7B03102DFEAE0E008FF816 /* viewable */;
-			targetProxy = BC7B03212DFEAE11008FF816 /* PBXContainerItemProxy */;
-		};
-		BC7B032C2DFEAE11008FF816 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BC7B03102DFEAE0E008FF816 /* viewable */;
-			targetProxy = BC7B032B2DFEAE11008FF816 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		BC7B03322DFEAE11008FF816 /* Debug */ = {
@@ -411,7 +267,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sh.851.viewable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -454,7 +310,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sh.851.viewable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -467,104 +323,6 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.0;
-			};
-			name = Release;
-		};
-		BC7B03382DFEAE11008FF816 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 62CSD5HKB8;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sh.851.viewableTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/viewable.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/viewable";
-				XROS_DEPLOYMENT_TARGET = 26.0;
-			};
-			name = Debug;
-		};
-		BC7B03392DFEAE11008FF816 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 62CSD5HKB8;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sh.851.viewableTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/viewable.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/viewable";
-				XROS_DEPLOYMENT_TARGET = 26.0;
-			};
-			name = Release;
-		};
-		BC7B033B2DFEAE11008FF816 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 62CSD5HKB8;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sh.851.viewableUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = viewable;
-				XROS_DEPLOYMENT_TARGET = 26.0;
-			};
-			name = Debug;
-		};
-		BC7B033C2DFEAE11008FF816 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 62CSD5HKB8;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sh.851.viewableUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = viewable;
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
@@ -586,24 +344,6 @@
 			buildConfigurations = (
 				BC7B03352DFEAE11008FF816 /* Debug */,
 				BC7B03362DFEAE11008FF816 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BC7B03372DFEAE11008FF816 /* Build configuration list for PBXNativeTarget "viewableTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BC7B03382DFEAE11008FF816 /* Debug */,
-				BC7B03392DFEAE11008FF816 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BC7B033A2DFEAE11008FF816 /* Build configuration list for PBXNativeTarget "viewableUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BC7B033B2DFEAE11008FF816 /* Debug */,
-				BC7B033C2DFEAE11008FF816 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
