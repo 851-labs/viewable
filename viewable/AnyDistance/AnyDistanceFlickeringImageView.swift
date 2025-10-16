@@ -2,52 +2,36 @@ import SwiftUI
 
 // MARK: - Shared view modifier (available on all platforms)
 
-/// Provides the common navigation title, toolbar info button, and info sheet used in both
-/// the UIKit-powered and fallback showcase views.
+/// Provides the common navigation title and toolbar buttons for the neon flicker showcase.
 struct AnyDistanceNeonFlickerInfoModifier: ViewModifier {
-  @State var isPresented: Bool = false
+  @Environment(\.openURL) private var openURL
+  
+  private let articleURL = URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!
+  private let sourceCodeURL = URL(string: "https://github.com/851-labs/viewable/blob/main/viewable/AnyDistance/AnyDistanceFlickeringImageView.swift")!
 
   func body(content: Content) -> some View {
     content
-      .navigationTitle("Neon Flickering Image")
+      .navigationTitle("Neon Flickering")
+      .navigationSubtitle("AnyDistance")
       .toolbar {
-        ToolbarItem {
-          Button("Information", systemImage: "info.circle") {
-            isPresented = true
+        ToolbarItemGroup {
+          Button {
+            openURL(articleURL)
+          } label: {
+            Label("View article", systemImage: "book.pages")
+          }
+          Button {
+            openURL(sourceCodeURL)
+          } label: {
+            Label("View source code", systemImage: "curlybraces")
           }
         }
-      }
-      .sheet(isPresented: $isPresented) {
-        NavigationView {
-          ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-              Text("I made this flickering image component to mimic the look of neon. The graphic is a copy of a real neon sign that hung outside Switchyards in downtown Atlanta, where we had an office.")
-                .italic()
-                .padding()
-              Link("View full article", destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
-                .padding(.horizontal)
-            }
-          }
-          .navigationTitle("Any Distance Goes Open Source")
-          .navigationSubtitle("Spotted in Prod")
-          #if !os(macOS)
-          .navigationBarTitleDisplayMode(.inline)
-          #endif
-          .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-              Button("Close", systemImage: "xmark") {
-                isPresented = false
-              }
-            }
-          }
-        }
-        .presentationDetents([.medium])
       }
   }
 }
 
 extension View {
-  /// Applies the Neon Flicker navigation title, info toolbar button and info sheet.
+  /// Applies the Neon Flicker navigation title and toolbar buttons.
   func anyDistanceNeonFlickerInfo() -> some View {
     modifier(AnyDistanceNeonFlickerInfoModifier())
   }

@@ -1,51 +1,35 @@
 import SwiftUI
 
-/// Provides the common navigation title, toolbar info button, and info sheet
-/// for the Metal gradient animation showcase.
+/// Provides the common navigation title and toolbar buttons for the Metal gradient showcase.
 struct AnyDistanceMetalGradientInfoModifier: ViewModifier {
-  @State private var isPresented: Bool = false
+  @Environment(\.openURL) private var openURL
+  
+  private let articleURL = URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!
+  private let sourceCodeURL = URL(string: "https://github.com/851-labs/viewable/blob/main/viewable/AnyDistance/AnyDistanceMetalGradientView.swift")!
 
   func body(content: Content) -> some View {
     content
-      .navigationTitle("Metal Gradient Animation")
+      .navigationTitle("Metal Gradient")
+      .navigationSubtitle("AnyDistance")
       .toolbar {
-        ToolbarItem {
-          Button("Information", systemImage: "info.circle") {
-            isPresented = true
+        ToolbarItemGroup {
+          Button {
+            openURL(articleURL)
+          } label: {
+            Label("View article", systemImage: "book.pages")
+          }
+          Button {
+            openURL(sourceCodeURL)
+          } label: {
+            Label("View source code", systemImage: "curlybraces")
           }
         }
-      }
-      .sheet(isPresented: $isPresented) {
-        NavigationView {
-          ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-              Text("This gradient animation shader was written in Metal. Although the implementation is completely different than the SwiftUI version, it follows the same basic principle – lots of blurred circles with random sizes, positions, animation, and blurs. It's really easy to draw a blurred oval in a shader – just ramp the color according to the distance to a center point. On top of that, there's some subtle domain warping and a generative noise function to really make it pop.")
-                .italic()
-                .padding()
-              Link("View full article", destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!)
-                .padding(.horizontal)
-            }
-          }
-          .navigationTitle("Any Distance Goes Open Source")
-          .navigationSubtitle("Spotted in Prod")
-#if !os(macOS)
-            .navigationBarTitleDisplayMode(.inline)
-#endif
-            .toolbar {
-              ToolbarItem(placement: .cancellationAction) {
-                Button("Close", systemImage: "xmark") {
-                  isPresented = false
-                }
-              }
-            }
-        }
-        .presentationDetents([.medium])
       }
   }
 }
 
 extension View {
-  /// Applies the Gradient Animation navigation title, info toolbar button and info sheet.
+  /// Applies the Gradient Animation navigation title and toolbar buttons.
   func anyDistanceMetalGradientInfo() -> some View {
     modifier(AnyDistanceMetalGradientInfoModifier())
   }

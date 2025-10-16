@@ -4,47 +4,28 @@ import SwiftUI
 /// used in both the UIKit-powered and fallback showcase views for the Any
 /// Distance 3-2-1-Go countdown.
 struct AnyDistanceCountdownInfoModifier: ViewModifier {
-  @State private var isPresented: Bool = true
-
+  @Environment(\.openURL) private var openURL
+  
+  private let articleURL = URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!
+  private let sourceCodeURL = URL(string: "https://github.com/851-labs/viewable/blob/main/viewable/AnyDistance/AnyDistanceCountdownView.swift")!
+  
   func body(content: Content) -> some View {
     content
       .navigationTitle("3-2-1 Go")
+      .navigationSubtitle("AnyDistance")
       .toolbar {
-        ToolbarItem {
-          Button("Information", systemImage: "info.circle") {
-            isPresented.toggle()
+        ToolbarItemGroup {
+          Button {
+            openURL(articleURL)
+          } label: {
+            Label("View article", systemImage: "book.pages")
+          }
+          Button {
+            openURL(sourceCodeURL)
+          } label: {
+            Label("View source code", systemImage: "curlybraces")
           }
         }
-      }
-      .inspector(isPresented: $isPresented) {
-        Form {
-          Section {
-            Text("\"This is our classic countdown timer written in SwiftUI. It's a good example of how stacking lots of different SwiftUI modifiers (scaleEffect, opacity, blur) can let you create more complex animations.\"")
-          } footer: {
-            HStack(spacing: 6) {
-              Spacer()
-              Link(destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!) {
-                Label("View full article", systemImage: "book.pages")
-              }
-              .buttonStyle(.bordered)
-              .labelStyle(.iconOnly)
-              .clipShape(Circle())
-              .aspectRatio(1, contentMode: .fit)
-
-              Link(destination: URL(string: "https://www.spottedinprod.com/blog/any-distance-goes-open-source")!) {
-                Label("View full article", systemImage: "hammer")
-              }
-              .buttonStyle(.bordered)
-              .labelStyle(.iconOnly)
-              .clipShape(Circle())
-              .aspectRatio(1, contentMode: .fit)
-            }
-          }
-        }
-
-        .navigationTitle("Any Distance Goes Open Source")
-        .navigationSubtitle("Spotted in Prod")
-        .inspectorColumnWidth(min: 200, ideal: 300, max: 400)
       }
   }
 }
