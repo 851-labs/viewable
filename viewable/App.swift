@@ -12,7 +12,11 @@ import SwiftUI
 struct viewableApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      AppRouter()
+    }
+    .commands {
+      InspectorCommands()
+      SidebarCommands()
     }
   }
 }

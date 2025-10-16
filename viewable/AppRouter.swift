@@ -120,7 +120,7 @@ struct SidebarConfigurationBuilder {
 
 // MARK: - Sidebar Configuration
 
-extension ContentView {
+extension AppRouter {
   @SidebarConfigurationBuilder
   static var sidebarSections: [SidebarSection] {
     SidebarSection(title: "Components") {
@@ -168,7 +168,7 @@ extension ContentView {
 
 // MARK: - Content View
 
-struct ContentView: View {
+struct AppRouter: View {
   @State private var selectedPage: Page? = {
     Self.sidebarSections
       .first?.pages
@@ -240,5 +240,5 @@ struct ContentView: View {
 }
 
 #Preview {
-  ContentView()
+  AppRouter()
 }
