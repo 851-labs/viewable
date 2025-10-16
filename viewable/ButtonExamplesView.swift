@@ -51,7 +51,7 @@ Button("Button") {
 
 struct ButtonExamplesView: View {
   var body: some View {
-    List {
+    Form {
       Section {
         ButtonExample(
           title: "Automatic Button",
@@ -457,6 +457,7 @@ Button("Capsule") {
       }
     }
     .navigationTitle("Buttons")
+    .formStyle(.grouped)
   }
 }
 

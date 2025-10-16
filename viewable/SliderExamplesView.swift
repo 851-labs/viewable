@@ -62,7 +62,7 @@ struct SliderExamplesView: View {
   @State private var brightnessValue: Double = 0.4
   
   var body: some View {
-    List {
+    Form {
       SliderExample(
         title: "Basic",
         slider: AnyView(Slider(value: $basicValue)),
@@ -300,6 +300,7 @@ VStack(alignment: .leading, spacing: 8) {
       )
     }
     .navigationTitle("Sliders")
+    .formStyle(.grouped)
   }
 }
 

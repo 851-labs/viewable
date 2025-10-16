@@ -60,7 +60,7 @@ struct StepperExamplesView: View {
   @State private var labelValue: Int = 8
   
   var body: some View {
-    List {
+    Form {
       StepperExample(
         title: "Basic",
         stepper: {
@@ -154,6 +154,7 @@ Stepper("Disabled: \\(value)", value: $value)
       )
     }
     .navigationTitle("Steppers")
+    .formStyle(.grouped)
   }
 }
 

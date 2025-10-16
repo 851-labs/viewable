@@ -61,7 +61,7 @@ struct ToggleExamplesView: View {
   @State private var disabledToggle: Bool = false
 
   var body: some View {
-    List {
+    Form {
       ToggleExample(
         title: "Basic",
         toggle: AnyView(Toggle("Toggle", isOn: $basicToggle)),
@@ -159,6 +159,7 @@ struct ToggleExamplesView: View {
       )
     }
     .navigationTitle("Toggles")
+    .formStyle(.grouped)
   }
 }
 

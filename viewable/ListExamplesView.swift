@@ -166,7 +166,7 @@ List {
 
 struct ListExamplesView: View {
   var body: some View {
-    List {
+    Form {
       Section {
         ForEach(ListStyleKind.allCases) { kind in
           ListStyleRow(kind: kind)
@@ -181,6 +181,7 @@ struct ListExamplesView: View {
       }
     }
     .navigationTitle("Lists")
+    .formStyle(.grouped)
   }
 }
 

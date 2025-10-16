@@ -58,7 +58,7 @@ struct ColorPickerExamplesView: View {
   @State private var customLabelColor: Color = .teal
   
   var body: some View {
-    List {
+    Form {
       ColorPickerExample(
         title: "Basic",
         colorPicker: AnyView(ColorPicker("Select Color", selection: $basicColor)),
@@ -117,6 +117,7 @@ ColorPicker("Disabled Color", selection: $selectedColor)
       )
     }
     .navigationTitle("Color Pickers")
+    .formStyle(.grouped)
   }
 }
 
