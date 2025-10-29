@@ -174,7 +174,7 @@ struct ButtonExamplesView: View {
         
         ButtonExample(
           title: "Icon Only Button",
-          button: AnyView(Button {} label: { Image(systemName: "star.fill") }),
+          button: AnyView(Button {} label: { Image(systemName: "star.fill") }.buttonBorderShape(.circle)),
           code: "Image(systemName: \"star.fill\")",
           fullCode: """
           Button {

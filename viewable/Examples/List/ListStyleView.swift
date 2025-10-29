@@ -16,27 +16,24 @@ private enum ListStyleKind: String, CaseIterable, Identifiable {
   case inset
   case insetGrouped
   case sidebar
-  
+
   var id: String { rawValue }
-  
+
   /// Human-readable title.
   var title: String {
     switch self {
-    case .automatic:      return "Automatic"
-    case .plain:          return "Plain"
-    case .grouped:        return "Grouped"
-    case .inset:          return "Inset"
-    case .insetGrouped:   return "Inset Grouped"
-    case .sidebar:        return "Sidebar"
+    case .automatic: return "Automatic"
+    case .plain: return "Plain"
+    case .grouped: return "Grouped"
+    case .inset: return "Inset"
+    case .insetGrouped: return "Inset Grouped"
+    case .sidebar: return "Sidebar"
     }
   }
-  
+
   /// Code snippet for the style modifier.
   var codeSnippet: String {
-    switch self {
-    default:
-      return "\(rawValue)"
-    }
+    return ".listStyle(.\(rawValue))"
   }
 }
 
@@ -45,7 +42,7 @@ private enum ListStyleKind: String, CaseIterable, Identifiable {
 /// A stand-alone list that applies the provided style.
 private struct SampleListView: View {
   let kind: ListStyleKind
-  
+
   private var list: some View {
     List {
       Section("Fruits") {
@@ -55,7 +52,7 @@ private struct SampleListView: View {
         Text("Grapes")
         Text("Strawberry")
       }
-      
+
       Section("Vegetables") {
         Label("Carrot", systemImage: "carrot")
         Label("Broccoli", systemImage: "tree")
@@ -63,7 +60,7 @@ private struct SampleListView: View {
         Label("Tomato", systemImage: "t.circle")
         Label("Cucumber", systemImage: "c.circle")
       }
-      
+
       // Section with a label header (text + icon)
       Section {
         Label("Milk", systemImage: "drop")
@@ -74,7 +71,7 @@ private struct SampleListView: View {
       } footer: {
         Text("Calcium-rich dairy products.")
       }
-      
+
       // Another label-based section to increase length
       Section {
         Label("Water", systemImage: "drop")
@@ -89,27 +86,29 @@ private struct SampleListView: View {
       }
     }
   }
-  
+
   var body: some View {
     // Apply the chosen style – the switch keeps the generic `some View` type intact.
     Group {
       switch kind {
-      case .automatic:      list
-      case .plain:          list.listStyle(.plain)
+      case .automatic: list
+      case .plain: list.listStyle(.plain)
       case .grouped:
         #if os(macOS)
-          ContentUnavailableView("Grouped list style is not available on this platform", systemImage: "pc")
+          ContentUnavailableView(
+            "Grouped list style is not available on this platform", systemImage: "pc")
         #else
           list.listStyle(.grouped)
         #endif
-      case .inset:          list.listStyle(.inset)
+      case .inset: list.listStyle(.inset)
       case .insetGrouped:
         #if os(macOS)
-          ContentUnavailableView("Inset Grouped list style is not available on this platform", systemImage: "pc")
+          ContentUnavailableView(
+            "Inset Grouped list style is not available on this platform", systemImage: "pc")
         #else
           list.listStyle(.insetGrouped)
         #endif
-      case .sidebar:        list.listStyle(.sidebar)
+      case .sidebar: list.listStyle(.sidebar)
       }
     }
     .navigationTitle(kind.title)
@@ -121,18 +120,12 @@ private struct SampleListView: View {
 /// Row displayed in the overview page; tapping it navigates to the sample list.
 private struct ListStyleRow: View {
   let kind: ListStyleKind
-  
+
   var body: some View {
     NavigationLink {
       SampleListView(kind: kind)
     } label: {
-      HStack {
-        Text(kind.title)
-        Spacer()
-        Text(kind.codeSnippet)
-          .font(.system(.caption2, design: .monospaced))
-          .foregroundStyle(.secondary)
-      }
+      Text(kind.title)
     }
     .contextMenu {
       Button("Copy Code") {
@@ -140,47 +133,44 @@ private struct ListStyleRow: View {
       }
     }
   }
-  
+
   private func generateCodeSnippet() -> String {
     switch kind {
     case .automatic:
       return """
-List {
-  // …
-}
-"""
+        List {
+          // …
+        }
+        """
     case .grouped, .insetGrouped:
       fallthrough
     default:
       return """
-List {
-  // …
-}
-.listStyle(.\(kind.rawValue))
-"""
+        List {
+          // …
+        }
+        .listStyle(.\(kind.rawValue))
+        """
     }
   }
 }
 
 // MARK: - Main View
 
-struct ListExamplesView: View {
+struct ListStyleView: View {
   var body: some View {
     Form {
-      Section {
-        ForEach(ListStyleKind.allCases) { kind in
+      ForEach(ListStyleKind.allCases) { kind in
+        Section {
           ListStyleRow(kind: kind)
-        }
-      } header: {
-        HStack {
-          Text("Styles")
-          Spacer()
-          Text(".listStyle()")
+        } footer: {
+          Text(kind.codeSnippet)
             .font(.system(.caption2, design: .monospaced))
+            .foregroundStyle(.secondary)
         }
       }
     }
-    .navigationTitle("Lists")
+    .navigationTitle(".listStyle(_:)")
     .formStyle(.grouped)
   }
 }
@@ -189,6 +179,6 @@ struct ListExamplesView: View {
 
 #Preview("All List Styles") {
   NavigationStack {
-    ListExamplesView()
+    ListStyleView()
   }
-} 
+}

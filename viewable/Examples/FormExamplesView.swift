@@ -27,10 +27,7 @@ private enum FormStyleKind: String, CaseIterable, Identifiable {
 
   /// Code snippet for the style modifier.
   var codeSnippet: String {
-    switch self {
-    default:
-      return "\(rawValue)"
-    }
+    return ".formStyle(.\(rawValue))"
   }
 }
 
@@ -153,13 +150,7 @@ private struct FormStyleRow: View {
     NavigationLink {
       SampleFormView(kind: kind)
     } label: {
-      HStack {
-        Text(kind.title)
-        Spacer()
-        Text(kind.codeSnippet)
-          .font(.system(.caption2, design: .monospaced))
-          .foregroundStyle(.secondary)
-      }
+      Text(kind.title)
     }
     .contextMenu {
       Button("Copy Code") {
@@ -167,23 +158,14 @@ private struct FormStyleRow: View {
       }
     }
   }
-
+  
   private func generateCodeSnippet() -> String {
-    switch kind {
-    case .automatic:
-      return """
-      Form {
-        // …
-      }
-      """
-    default:
-      return """
-      Form {
-        // …
-      }
-      .formStyle(.\(kind.rawValue))
-      """
+    return """
+    Form {
+      // …
     }
+    .formStyle(.\(kind.rawValue))
+    """
   }
 }
 
@@ -192,20 +174,17 @@ private struct FormStyleRow: View {
 struct FormExamplesView: View {
   var body: some View {
     Form {
-      Section {
-        ForEach(FormStyleKind.allCases) { kind in
+      ForEach(FormStyleKind.allCases) { kind in
+        Section {
           FormStyleRow(kind: kind)
-        }
-      } header: {
-        HStack {
-          Text("Styles")
-          Spacer()
-          Text(".formStyle()")
+        } footer: {
+          Text(kind.codeSnippet)
             .font(.system(.caption2, design: .monospaced))
+            .foregroundStyle(.secondary)
         }
       }
     }
-    .navigationTitle("Forms")
+    .navigationTitle(".formStyle(_:)")
     .formStyle(.grouped)
   }
 }
