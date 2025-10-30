@@ -38,7 +38,7 @@ enum Clipboard {
     pasteboard.setString(text, forType: .string)
     #endif
   }
-  
+
   static var text: String? {
     #if os(iOS)
     return UIPasteboard.general.string
@@ -46,7 +46,7 @@ enum Clipboard {
     return NSPasteboard.general.string(forType: .string)
     #endif
   }
-  
+
   static func clear() {
     #if os(iOS)
     UIPasteboard.general.string = ""
@@ -54,4 +54,4 @@ enum Clipboard {
     NSPasteboard.general.clearContents()
     #endif
   }
-} 
+}

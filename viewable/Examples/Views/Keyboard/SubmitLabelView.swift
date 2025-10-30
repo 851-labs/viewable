@@ -1,5 +1,5 @@
 //
-//  SubmitLabelsView.swift
+//  SubmitLabelView.swift
 //  viewable
 //
 //  Created by Alexandru Turcanu on 6/15/25.
@@ -56,13 +56,17 @@ struct SubmitLabelExample: View {
 
 // MARK: - Main View
 
-struct SubmitLabelsView: View {
+struct SubmitLabelView: View {
   var body: some View {
-    #if os(iOS) || os(tvOS)
-      submitLabelsForm
-    #else
-      unsupportedPlatformView
-    #endif
+    Group {
+      #if os(iOS) || os(tvOS)
+        submitLabelsForm
+      #else
+        UnavailableFeatureView(feature: "submitLabel(_:)")
+      #endif
+    }
+    .navigationTitle("submitLabel(_:)")
+    .navigationSubtitle("Sets the submit label for this view.")
   }
 
   #if os(iOS) || os(tvOS)
@@ -131,25 +135,15 @@ struct SubmitLabelsView: View {
           code: "search"
         )
       }
-      .navigationTitle("Submit Labels")
       .formStyle(.grouped)
     }
   #endif
-
-  private var unsupportedPlatformView: some View {
-    ContentUnavailableView(
-      "Not Available",
-      systemImage: "keyboard",
-      description: Text("Submit labels are not available on \(platformName)")
-    )
-    .navigationTitle("Submit Labels")
-  }
 }
 
 // MARK: - Previews
 
 #Preview("All Submit Labels") {
   NavigationStack {
-    SubmitLabelsView()
+    SubmitLabelView()
   }
 }

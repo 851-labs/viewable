@@ -171,7 +171,7 @@ private struct FormStyleRow: View {
 
 // MARK: - Main View
 
-struct FormExamplesView: View {
+struct FormStyleView: View {
   var body: some View {
     Form {
       ForEach(FormStyleKind.allCases) { kind in
@@ -184,8 +184,9 @@ struct FormExamplesView: View {
         }
       }
     }
-    .navigationTitle(".formStyle(_:)")
     .formStyle(.grouped)
+    .navigationTitle("formStyle(_:)")
+    .navigationSubtitle("Sets the style for forms in a view hierarchy.")
   }
 }
 
@@ -193,6 +194,6 @@ struct FormExamplesView: View {
 
 #Preview("All Form Styles") {
   NavigationStack {
-    FormExamplesView()
+    FormStyleView()
   }
 }

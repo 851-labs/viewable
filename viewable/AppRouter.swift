@@ -148,11 +148,14 @@ extension AppRouter {
       Page(id: "colorPickers", title: "Color Picker", systemImage: "paintpalette") {
         ColorPickerExamplesView()
       }
+    }
+
+    SidebarSection(title: "Views & Modifiers") {
       Page(
         id: "list", title: "List",
         systemImage: "list.bullet",
         pages: {
-          Page(id: "listStyle", title: "func listStyle(_:)") {
+          Page(id: "listStyle", title: "listStyle(_:)", systemImage: "m.square.fill") {
             ListStyleView()
           }
         })
@@ -160,7 +163,7 @@ extension AppRouter {
         id: "form", title: "Form",
         systemImage: "textformat.abc",
         pages: {
-          Page(id: "formStyle", title: "func formStyle(_:)") {
+          Page(id: "formStyle", title: "formStyle(_:)", systemImage: "m.square.fill") {
             FormStyleView()
           }
         })
@@ -168,7 +171,10 @@ extension AppRouter {
         id: "scrollView", title: "Scroll View",
         systemImage: "scroll",
         pages: {
-          Page(id: "scrollEdgeEffectStyle", title: "func scrollEdgeEffectStyle(_:for:)") {
+          Page(
+            id: "scrollEdgeEffectStyle", title: "scrollEdgeEffectStyle(_:for:)",
+            systemImage: "m.square.fill"
+          ) {
             ScrollEdgeEffectView()
           }
         })
@@ -176,11 +182,11 @@ extension AppRouter {
         id: "keyboard", title: "Keyboard",
         systemImage: "keyboard",
         pages: {
-          Page(id: "keyboardTypes", title: "Keyboard Types") {
-            KeyboardTypesView()
+          Page(id: "keyboardTypes", title: "keyboardType(_:)", systemImage: "m.square.fill") {
+            KeyboardTypeView()
           }
-          Page(id: "submitLabels", title: "Submit Labels") {
-            SubmitLabelsView()
+          Page(id: "submitLabels", title: "submitLabel(_:)", systemImage: "m.square.fill") {
+            SubmitLabelView()
           }
         })
     }
@@ -234,8 +240,7 @@ struct AppRouter: View {
         } else {
           expandedPages.remove(pageId)
         }
-      }
-    )
+      })
   }
 
   var body: some View {
@@ -257,7 +262,18 @@ struct AppRouter: View {
                   DisclosureGroup(isExpanded: isExpanded(page.id)) {
                     ForEach(page.children) { child in
                       NavigationLink(value: child) {
-                        Text(child.title)
+                        if let systemImage = child.systemImage {
+                          Label {
+                            Text(child.title)
+                          } icon: {
+                            Image(systemName: systemImage)
+                              .font(.title2)
+                              .foregroundStyle(.blue)
+                              .symbolColorRenderingMode(.gradient)
+                          }
+                        } else {
+                          Text(child.title)
+                        }
                       }
                     }
                   } label: {
@@ -278,6 +294,7 @@ struct AppRouter: View {
           }
         }
         .navigationTitle("Viewable")
+
       } else {
         ContentUnavailableView(
           "No Results",
@@ -295,8 +312,7 @@ struct AppRouter: View {
         ContentUnavailableView(
           "Select an item",
           systemImage: "sidebar.left",
-          description: Text("Choose a component from the sidebar")
-        )
+          description: Text("Choose a component from the sidebar"))
       }
     }
     .searchable(text: $searchText, placement: .sidebar, prompt: "Search examples")

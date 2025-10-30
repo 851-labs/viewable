@@ -130,8 +130,10 @@ struct ScrollEdgeEffectView: View {
         }
       }
     }
-    .navigationTitle("scrollEdgeEffectStyle")
     .formStyle(.grouped)
+    .navigationTitle("scrollEdgeEffectStyle(_:for:)")
+    .navigationSubtitle(
+      "Configures the scroll edge effect style for scroll views within this hierarchy.")
   }
 }
 

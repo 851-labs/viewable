@@ -1,5 +1,5 @@
 //
-//  KeyboardTypesView.swift
+//  KeyboardTypeView.swift
 //  viewable
 //
 //  Created by Alexandru Turcanu on 6/15/25.
@@ -72,13 +72,17 @@ struct KeyboardTypeExample: View {
 
 // MARK: - Main View
 
-struct KeyboardTypesView: View {
+struct KeyboardTypeView: View {
   var body: some View {
-    #if os(iOS)
-      keyboardTypesForm
-    #else
-      unsupportedPlatformView
-    #endif
+    Group {
+      #if os(iOS)
+        keyboardTypesForm
+      #else
+        UnavailableFeatureView(feature: "keyboardType(_:)")
+      #endif
+    }
+    .navigationTitle("keyboardType(_:)")
+    .navigationSubtitle("Sets the keyboard type for this view.")
   }
 
   #if os(iOS)
@@ -168,25 +172,15 @@ struct KeyboardTypesView: View {
           code: "asciiCapableNumberPad"
         )
       }
-      .navigationTitle("Keyboard Types")
       .formStyle(.grouped)
     }
   #endif
-
-  private var unsupportedPlatformView: some View {
-    ContentUnavailableView(
-      "Not Available",
-      systemImage: "keyboard",
-      description: Text("Keyboard types are not available on \(platformName)")
-    )
-    .navigationTitle("Keyboard Types")
-  }
 }
 
 // MARK: - Previews
 
 #Preview("All Keyboard Types") {
   NavigationStack {
-    KeyboardTypesView()
+    KeyboardTypeView()
   }
 }

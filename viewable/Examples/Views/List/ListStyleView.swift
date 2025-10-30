@@ -95,16 +95,14 @@ private struct SampleListView: View {
       case .plain: list.listStyle(.plain)
       case .grouped:
         #if os(macOS)
-          ContentUnavailableView(
-            "Grouped list style is not available on this platform", systemImage: "pc")
+          UnavailableFeatureView(feature: ".grouped")
         #else
           list.listStyle(.grouped)
         #endif
       case .inset: list.listStyle(.inset)
       case .insetGrouped:
         #if os(macOS)
-          ContentUnavailableView(
-            "Inset Grouped list style is not available on this platform", systemImage: "pc")
+          UnavailableFeatureView(feature: ".insetGrouped")
         #else
           list.listStyle(.insetGrouped)
         #endif
@@ -170,8 +168,9 @@ struct ListStyleView: View {
         }
       }
     }
-    .navigationTitle(".listStyle(_:)")
     .formStyle(.grouped)
+    .navigationTitle("listStyle(_:)")
+    .navigationSubtitle("Sets the style for lists within this view.")
   }
 }
 

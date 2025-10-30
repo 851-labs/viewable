@@ -66,3 +66,7 @@ fastlane/test_output
 **/.DS_Store
 **/._.DS_Store
 buildServer.json
+
+# xcode-build-server files
+buildServer.json
+.compile
