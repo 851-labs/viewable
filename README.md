@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="270" height="270" src="/assets/icon.png" alt="logo">
+  <img width="270" height="270" src="viewable/Resources/RasterIcon.png" alt="logo">
   <h1><b>viewable</b></h1>
   <p>The missing piece of Apple's documentation for SwiftUI.</p>
 </div>
